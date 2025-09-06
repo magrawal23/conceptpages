@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduTrack User Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #29b6f6;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .grid-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            border-bottom: 2px solid #29b6f6;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #29b6f6;
+            color: white;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul li {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>EduTrack User Guide</h1>
+        <nav>
+            <ul>
+                <li><a href="#tracking-students">Tracking Students</a></li>
+                <li><a href="#facilitating-graduation">Facilitating Graduation</a></li>
+                <li><a href="#plans-of-study">Plans of Study</a></li>
+                <li><a href="#petitions">Petitions</a></li>
+                <li><a href="#communications">Communications</a></li>
+                <li><a href="#annual-reviews">Annual Reviews</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="grid-container">
+            <section id="tracking-students" class="grid-item">
+                <h2>Tracking Students</h2>
+                <ul>
+                    <li>View detailed student profiles with academic history.</li>
+                    <li>Monitor real-time course completion and GPA.</li>
+                    <li>Set automated alerts for at-risk students.</li>
+                    <li>Generate cohort-based progress reports.</li>
+                </ul>
+            </section>
+
+            <section id="facilitating-graduation" class="grid-item">
+                <h2>Facilitating Graduation</h2>
+                <ul>
+                    <li>Run graduation audits for credit tracking.</li>
+                    <li>Identify missing course requirements.</li>
+                    <li>Send automated deadline reminders.</li>
+                    <li>Export eligibility reports for departments.</li>
+                </ul>
+            </section>
+
+            <section id="plans-of-study" class="grid-item">
+                <h2>Plans of Study</h2>
+                <ul>
+                    <li>Use templates for common academic plans.</li>
+                    <li>Collaborate on plans with version control.</li>
+                    <li>Track adherence to study plans.</li>
+                    <li>Submit plans for department approval.</li>
+                </ul>
+            </section>
+
+            <section id="petitions" class="grid-item">
+                <h2>Petitions</h2>
+                <ul>
+                    <li>Submit course substitution requests.</li>
+                    <li>File late withdrawal petitions.</li>
+                    <li>Track petition status in real time.</li>
+                    <li>Review petitions with advisor comments.</li>
+                </ul>
+            </section>
+
+            <section id="communications" class="grid-item">
+                <h2>Communications</h2>
+                <ul>
+                    <li>Send targeted in-app messages.</li>
+                    <li>Post announcements for deadlines.</li>
+                    <li>Schedule advising via calendar sync.</li>
+                    <li>Use templates for common emails.</li>
+                </ul>
+            </section>
+
+            <section id="annual-reviews" class="grid-item">
+                <h2>Annual Reviews</h2>
+                <ul>
+                    <li>Create custom review forms.</li>
+                    <li>Assign reviewers and set deadlines.</li>
+                    <li>Collect student self-assessments.</li>
+                    <li>Generate reports for accreditation.</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 EduTrack Inc. All rights reserved.</p>
+        <p>Contact Support: <a href="mailto:support@edutrack.example.com">support@edutrack.example.com</a> | 
+        <a href="https://edutrack.example.com">edutrack.example.com</a></p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth scrolling for nav links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
