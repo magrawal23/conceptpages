@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni Record Editor Mockup</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px auto;
+            max-width: 1400px; /* Maintained to ensure content fits */
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.4;
+            display: flex;
+            flex-direction: column;
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            align-items: flex-start; /* Align items at the top */
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin: 0 0 10px 0;
+            font-size: 1.8em;
+            flex: 0 0 100%; /* Span full width for title */
+        }
+        .top-section {
+            display: flex;
+            width: 100%;
+        }
+        .student-record {
+            border: 1px solid #ddd;
+            padding: 15px;
+            background-color: #ffffff;
+            margin-bottom: 0; /* No margin at bottom since it's in a flex container */
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            flex: 1 1 50%; /* Take up half the width */
+            max-width: 50%; /* Ensure it doesn't exceed half */
+        }
+        .student-record h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .student-record h2 span.id {
+            font-weight: normal;
+            margin-left: 10px;
+            color: #34495e;
+            font-size: 1em;
+        }
+        .student-record table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        .student-record th, .student-record td {
+            padding: 6px 8px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+        .student-record th {
+            width: 33.33%; /* Adjusted for 3 pairs per row */
+            background-color: #ecf0f1;
+            color: #34495e;
+            font-weight: bold;
+            vertical-align: top;
+        }
+        .student-record td {
+            width: 33.33%; /* Adjusted for 3 pairs per row */
+            vertical-align: top;
+        }
+        .linkedin-tile {
+            flex: 0 0 400px; /* Fixed width for LinkedIn tile */
+            border: 1px solid #ddd;
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-left: 20px; /* Space from the student record */
+        }
+        .linkedin-tile h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+        .linkedin-tile .navigation {
+            text-align: right;
+            margin-bottom: 10px;
+        }
+        .linkedin-tile .profile-link {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #0073b1;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .linkedin-tile .profile-link:hover {
+            background-color: #005a87;
+        }
+        .linkedin-tile .placeholder {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+        .editor-container {
+            display: flex;
+            flex-direction: column;
+        }
+        .editable-section {
+            border: 1px solid #ddd;
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+            width: 100%; /* Full width below the header */
+        }
+        .editable-section h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+        .editable-section h3 {
+            color: #34495e;
+            font-size: 1.1em;
+            margin: 10px 0 5px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        .editable-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Increased gap for better spacing */
+            margin-bottom: 10px;
+        }
+        .editable-field {
+            flex: 1 1 30%; /* Adjusted to fit 3 fields per row */
+            min-width: 300px; /* Increased to ensure ample space */
+            max-width: 400px; /* Increased max-width for flexibility */
+        }
+        .editable-field.job-title input {
+            min-width: 400px; /* Increased width specifically for job title fields */
+            max-width: 450px; /* Cap to prevent excessive stretching */
+        }
+        .editable-field label {
+            font-weight: bold;
+            color: #34495e;
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.9em;
+        }
+        .editable-field select {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            box-sizing: border-box;
+            font-size: 0.9em;
+            background-color: #fff;
+            transition: border-color 0.3s;
+        }
+        .editable-field select:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 3px rgba(52, 152, 219, 0.5);
+        }
+        .editable-field input {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            box-sizing: border-box;
+            font-size: 0.9em;
+            transition: border-color 0.3s;
+        }
+        .editable-field input:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 3px rgba(52, 152, 219, 0.5);
+        }
+        .editable-field input.salary {
+            width: 150px; /* Increased width for salary fields */
+        }
+        .editable-field input.year {
+            width: 120px; /* Increased width for year fields */
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <div class="top-section">
+            <div class="student-record">
+                <h2>Student Record (Non-Editable) <span class="id">ID: 99</span></h2>
+                <table>
+                    <tr>
+                        <th>Last Name:</th><td>Liu</td>
+                        <th>Middle Name:</th><td></td>
+                        <th>First Name:</th><td>Lu</td>
+                    </tr>
+                    <tr>
+                        <th>Email:</th><td>lliu10@ncsu.edu</td>
+                        <th>Personal Email:</th><td>zju.liulu@gmail.com</td>
+                        <th>Degree Code:</th><td>PHD</td>
+                    </tr>
+                    <tr>
+                        <th>Degree Classification:</th><td>Doctoral</td>
+                        <th>Degree Name:</th><td>Doctor of Philosophy</td>
+                        <th>College Code:</th><td>COT</td>
+                    </tr>
+                    <tr>
+                        <th>College Name:</th><td>Wilson College of Textiles</td>
+                        <th>Department:</th><td>18T</td>
+                        <th>Department Name:</th><td>Textiles Dean's Office</td>
+                    </tr>
+                    <tr>
+                        <th>Major:</th><td>18T</td>
+                        <th>Major Name:</th><td>Textiles Dean's Office</td>
+                        <th>Plan:</th><td>Fiber & Polymer Sci-PHD</td>
+                    </tr>
+                    <tr>
+                        <th>Subplan:</th><td></td>
+                        <th>Phone Number:</th><td>919/720-1726</td>
+                        <th>Grad Term:</th><td>201507</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="linkedin-tile">
+                <h2>LinkedIn Profile</h2>
+                <div class="navigation">
+                    <button type="button">Previous</button>
+                    <button type="button">Next</button>
+                </div>
+                <a id="profile-link" href="https://www.linkedin.com/in/luliu1/" target="_blank" rel="noopener noreferrer" class="profile-link">Open LinkedIn Profile</a>
+                <div class="placeholder">
+                    <p>Profile preview (mockup placeholder):</p>
+                    <p><strong>Lu Liu</strong><br>
+                    PhD in forestry biomaterials | Seeking staff scientist/engineer position<br>
+                    Location: New York City Metropolitan Area<br>
+                    Headline: Forest Biomaterials | Chemical Engineering | Bio-Refining</p>
+                    <p>(Full profile opens in new tab)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="editor-container">
+        <div class="editable-section">
+            <h2>Editable Job Details</h2>
+            <h3>LinkedIn Information</h3>
+            <div class="editable-row">
+                <div class="editable-field">
+                    <label for="linkedin-url">LinkedIn URL:</label>
+                    <input type="text" id="linkedin-url" value="https://www.linkedin.com/in/luliu1/" placeholder="Enter full URL (e.g., https://linkedin.com/in/username)" oninput="updateLink()">
+                </div>
+                <div class="editable-field">
+                    <label for="linkedin-score">LinkedIn Score:</label>
+                    <input type="text" id="linkedin-score" value="1" placeholder="Enter score (0-100)">
+                </div>
+                <div class="editable-field">
+                    <label>&nbsp;</label> <!-- Placeholder to maintain 3-field layout -->
+                    <input type="text" disabled style="display: none;"> <!-- Hidden input to avoid validation issues -->
+                </div>
+            </div>
+            <h3>First Job After Graduation</h3>
+            <div class="editable-row">
+                <div class="editable-field job-title">
+                    <label for="first-job-title">Job Title:</label>
+                    <input type="text" id="first-job-title" value="Innovation Project Manager, Corporate Venture Associate" placeholder="Enter job title">
+                </div>
+                <div class="editable-field">
+                    <label for="first-job-employer">Employer:</label>
+                    <select id="first-job-employer" name="first-job-employer">
+                        <option value="">Select Employer</option>
+                        <option value="MANN+HUMMEL Group" selected>MANN+HUMMEL Group</option>
+                        <option value="Atacama Inc">Atacama Inc</option>
+                        <option value="GFL Environmental Inc">GFL Environmental Inc</option>
+                        <option value="Cato Corporation">Cato Corporation</option>
+                        <option value="Tom James">Tom James</option>
+                        <option value="Patagonia">Patagonia</option>
+                        <option value="Diamond Brand Gear Company">Diamond Brand Gear Company</option>
+                        <option value="Greenville Convention Center">Greenville Convention Center</option>
+                        <option value="Communa-K">Communa-K</option>
+                        <option value="Belk">Belk</option>
+                        <option value="Keystone Consulting Group">Keystone Consulting Group</option>
+                        <option value="Dillards">Dillards</option>
+                    </select>
+                </div>
+                <div class="editable-field">
+                    <label for="first-job-location">Location:</label>
+                    <select id="first-job-location" name="first-job-location">
+                        <option value="">Select Location</option>
+                        <option value="Raleigh-Durham-Chapel Hill Area" selected>Raleigh-Durham-Chapel Hill Area</option>
+                        <option value="Alameda, CA">Alameda, CA</option>
+                        <option value="Raleigh-Durham-Chapel Hill Area, NC">Raleigh-Durham-Chapel Hill Area, NC</option>
+                        <option value="Charlotte, North Carolina Area">Charlotte, North Carolina Area</option>
+                        <option value="Cary, NC">Cary, NC</option>
+                        <option value="Reno, NV">Reno, NV</option>
+                        <option value="Asheville, NC">Asheville, NC</option>
+                        <option value="Greenville, NC">Greenville, NC</option>
+                        <option value="New York City">New York City</option>
+                        <option value="Charlotte, NC">Charlotte, NC</option>
+                        <option value="Raleigh-Durham, North Carolina Area">Raleigh-Durham, North Carolina Area</option>
+                        <option value="Wilmington, North Carolina Area">Wilmington, North Carolina Area</option>
+                    </select>
+                </div>
+            </div>
+            <div class="editable-row">
+                <div class="editable-field">
+                    <label for="first-job-soc-code">SOC Code:</label>
+                    <input type="text" id="first-job-soc-code" value="11-1021" placeholder="Enter SOC code (e.g., 11-1021)">
+                </div>
+                <div class="editable-field">
+                    <label for="first-job-soc-title">SOC Title:</label>
+                    <input type="text" id="first-job-soc-title" value="General and Operations Managers" placeholder="Enter SOC title">
+                </div>
+                <div class="editable-field">
+                    <label for="first-job-salary">Salary:</label>
+                    <input type="text" id="first-job-salary" value="105000" class="salary" placeholder="Enter salary (e.g., 50000)">
+                </div>
+            </div>
+            <div class="editable-row">
+                <div class="editable-field">
+                    <label for="first-job-start-year">Start Year:</label>
+                    <input type="text" id="first-job-start-year" value="" class="year" placeholder="Enter year (e.g., 2018)">
+                </div>
+                <div class="editable-field">
+                    <label for="first-job-end-year">End Year:</label>
+                    <input type="text" id="first-job-end-year" value="" class="year" placeholder="Enter year (e.g., 2020) or 'Present'">
+                </div>
+                <div class="editable-field">
+                    <label>&nbsp;</label> <!-- Placeholder to maintain 3-field layout -->
+                    <input type="text" disabled style="display: none;"> <!-- Hidden input to avoid validation issues -->
+                </div>
+            </div>
+            <h3>Latest Job</h3>
+            <div class="editable-row">
+                <div class="editable-field job-title">
+                    <label for="latest-job-title">Job Title:</label>
+                    <input type="text" id="latest-job-title" value="Senior Manager, Vendor Relationship, Supply Chain" placeholder="Enter job title">
+                </div>
+                <div class="editable-field">
+                    <label for="latest-job-employer">Employer:</label>
+                    <select id="latest-job-employer" name="latest-job-employer">
+                        <option value="">Select Employer</option>
+                        <option value="FlexGen" selected>FlexGen</option>
+                        <option value="PEARL iZUMi">PEARL iZUMi</option>
+                        <option value="10:04 Creative">10:04 Creative</option>
+                        <option value="Foodbuy USA">Foodbuy USA</option>
+                        <option value="North Carolina Education Lottery">North Carolina Education Lottery</option>
+                        <option value="MIT Lincoln Laboratory">MIT Lincoln Laboratory</option>
+                        <option value="Ally Bank">Ally Bank</option>
+                        <option value="Nordstrom">Nordstrom</option>
+                        <option value="The Fresh Market">The Fresh Market</option>
+                        <option value="Wray Ward">Wray Ward</option>
+                        <option value="Align Technology">Align Technology</option>
+                        <option value="Lowe's Companies, Inc.">Lowe's Companies, Inc.</option>
+                    </select>
+                </div>
+                <div class="editable-field">
+                    <label for="latest-job-location">Location:</label>
+                    <select id="latest-job-location" name="latest-job-location">
+                        <option value="">Select Location</option>
+                        <option value="Raleigh-Durham-Chapel Hill Area" selected>Raleigh-Durham-Chapel Hill Area</option>
+                        <option value="Broomfield, CO">Broomfield, CO</option>
+                        <option value="Raleigh-Durham-Chapel Hill, NC">Raleigh-Durham-Chapel Hill, NC</option>
+                        <option value="Charlotte, NC">Charlotte, NC</option>
+                        <option value="Raleigh-Durham, North Carolina Area">Raleigh-Durham, North Carolina Area</option>
+                        <option value="Lexington, MA">Lexington, MA</option>
+                        <option value="Seattle, WA">Seattle, WA</option>
+                        <option value="Greensboro, North Carolina, United States">Greensboro, North Carolina, United States</option>
+                        <option value="Charlotte, North Carolina, United States">Charlotte, North Carolina, United States</option>
+                        <option value="Raleigh, NC">Raleigh, NC</option>
+                        <option value="Jacksonville, FL">Jacksonville, FL</option>
+                    </select>
+                </div>
+            </div>
+            <div class="editable-row">
+                <div class="editable-field">
+                    <label for="latest-job-soc-code">SOC Code:</label>
+                    <input type="text" id="latest-job-soc-code" value="11-3051" placeholder="Enter SOC code (e.g., 11-3051)">
+                </div>
+                <div class="editable-field">
+                    <label for="latest-job-soc-title">SOC Title:</label>
+                    <input type="text" id="latest-job-soc-title" value="Industrial Production Managers" placeholder="Enter SOC title">
+                </div>
+                <div class="editable-field">
+                    <label for="latest-job-salary">Salary:</label>
+                    <input type="text" id="latest-job-salary" value="120000" class="salary" placeholder="Enter salary (e.g., 60000)">
+                </div>
+            </div>
+            <div class="editable-row">
+                <div class="editable-field">
+                    <label for="latest-job-start-year">Start Year:</label>
+                    <input type="text" id="latest-job-start-year" value="" class="year" placeholder="Enter year (e.g., 2020)">
+                </div>
+                <div class="editable-field">
+                    <label for="latest-job-end-year">End Year:</label>
+                    <input type="text" id="latest-job-end-year" value="Present" class="year" placeholder="Enter year (e.g., 2023) or 'Present'">
+                </div>
+                <div class="editable-field">
+                    <label>&nbsp;</label> <!-- Placeholder to maintain 3-field layout -->
+                    <input type="text" disabled style="display: none;"> <!-- Hidden input to avoid validation issues -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Populate link on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateLink();
+        });
+
+        function updateLink() {
+            const url = document.getElementById('linkedin-url').value;
+            document.getElementById('profile-link').href = url;
+        }
+    </script>
+</body>
+</html>
